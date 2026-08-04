@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глубина моей любви к тебе, Стеша</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            height: 15000vh;
+            /* 150 ЭКРАНОВ — НЕВОЗМОЖНО ПРОЛИСТАТЬ */
+            cursor: default;
+        }
+
+        /* ===== ФОНЫ ===== */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            transition: background 2s ease;
+            background: linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 40%, #4A90D9 100%);
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 2s ease, background 2s ease;
+            opacity: 0;
+        }
+
+        .stars-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.7);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.4);
+            }
+        }
+
+        /* ===== ЧАСТИЦЫ ===== */
+        .particles-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.9;
+            }
+            95% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* ===== КОНТЕНТ ===== */
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 15000vh;
+        }
+
+        /* ===== ЭТАПЫ ===== */
+        .stage {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        /* ===== ГЕОМЕТРИЧЕСКИЕ ОБЪЕКТЫ ВМЕСТО ФОТО ===== */
+        .geo-object {
+            width: 280px;
+            height: 280px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+            transition: all 1s ease;
+        }
+
+        .geo-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Гора */
+        .geo-mountain {
+            background: linear-gradient(180deg, #E8D5B7 0%, #C4A882 40%, #8B7355 70%, #5D4E37 100%);
+            border-radius: 50% 50% 30px 30px;
+        }
+        .geo-mountain::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 140px solid #fff;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+        }
+        .geo-mountain .snow-cap {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+
+        /* Океан */
+        .geo-ocean {
+            background: linear-gradient(180deg, #7EC8E3 0%, #4A90D9 50%, #1a5c8a 100%);
+            animation: oceanWaves 4s ease-in-out infinite;
+        }
+        @keyframes oceanWaves {
+            0%,
+            100% {
+                box-shadow: 0 0 60px rgba(74, 144, 217, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 100px rgba(74, 144, 217, 0.8);
+            }
+        }
+        .geo-ocean::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            width: 100%;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: waveLine 3s ease-in-out infinite;
+        }
+        @keyframes waveLine {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Риф */
+        .geo-reef {
+            background: radial-gradient(ellipse at 30% 40%, #FF6B6B 0%, #E84040 30%, #4ECDC4 60%, #2ecc71 80%, #1a6b4a 100%);
+            border-radius: 40% 60% 50% 50%;
+        }
+
+        /* Глубины */
+        .geo-deep {
+            background: linear-gradient(180deg, #0a1a3a 0%, #050d1f 60%, #01050f 100%);
+            border-radius: 50%;
+        }
+        .geo-deep::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 200, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 255, 200, 0.8);
+            animation: deepGlow 2s ease-in-out infinite;
+        }
+        @keyframes deepGlow {
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        /* Бездна */
+        .geo-abyss {
+            background: radial-gradient(ellipse at center, #0a0020 0%, #000008 100%);
+            border-radius: 30px;
+            border: 2px solid rgba(100, 100, 255, 0.2);
+        }
+
+        /* Жёлоб */
+        .geo-trench {
+            background: linear-gradient(180deg, #020818 0%, #000 80%, #010510 100%);
+            clip-path: polygon(30% 0%, 70% 0%, 90% 100%, 10% 100%);
+            border-radius: 0;
+        }
+
+        /* Марианская впадина */
+        .geo-mariana {
+            background: radial-gradient(ellipse at center, #000510 0%, #000 100%);
+            border-radius: 50% 50% 10px 10px;
+            border: 1px solid rgba(80, 80, 150, 0.3);
+        }
+
+        /* Ракета */
+        .geo-rocket {
+            background: linear-gradient(180deg, #E0E0E0 0%, #9E9E9E 50%, #FF5722 100%);
+            clip-path: polygon(50% 0%, 80% 40%, 80% 100%, 20% 100%, 20% 40%);
+            border-radius: 20px 20px 0 0;
+        }
+        .geo-rocket::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(ellipse, #FF9800 0%, #FF5722 50%, transparent 70%);
+            border-radius: 50%;
+            animation: rocketFlame 0.5s ease-in-out infinite;
+        }
+        @keyframes rocketFlame {
+            0%,
+            100% {
+                transform: scaleY(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scaleY(1.8);
+                opacity: 1;
+            }
+        }
+
+        /* Луна */
+        .geo-moon {
+            background: radial-gradient(circle at 40% 35%, #F5F5F5 0%, #BDBDBD 40%, #757575 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(245, 245, 245, 0.6);
+        }
+        .geo-moon::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(150, 150, 150, 0.4);
+            border-radius: 50%;
+            top: 40px;
+            left: 60px;
+        }
+        .geo-moon::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(130, 130, 130, 0.5);
+            border-radius: 50%;
+            top: 100px;
+            left: 150px;
+        }
+
+        /* Меркурий */
+        .geo-mercury {
+            background: radial-gradient(circle at 45% 40%, #B0BEC5 0%, #78909C 40%, #546E7A 100%);
+            border-radius: 50%;
+        }
+
+        /* Венера */
+        .geo-venus {
+            background: radial-gradient(circle at 40% 35%, #FFCC80 0%, #E8A64C 40%, #BF7B30 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255, 204, 128, 0.4);
+        }
+
+        /* Земля */
+        .geo-earth {
+            background: radial-gradient(circle at 35% 30%, #64B5F6 0%, #1565C0 40%, #0D47A1 60%, #1B5E20 80%, #0a3d0a 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 70px rgba(100, 181, 246, 0.5);
+        }
+
+        /* Марс */
+        .geo-mars {
+            background: radial-gradient(circle at 40% 35%, #EF5350 0%, #C62828 40%, #8B1A1A 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(239, 83, 80, 0.4);
+        }
+
+        /* Юпитер */
+        .geo-jupiter {
+            background: linear-gradient(180deg, #FFE0B2 0%, #FFB74D 20%, #FF8A65 40%, #FFB74D 60%, #FFCC80 80%, #FFE0B2 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(255, 183, 77, 0.5);
+        }
+        .geo-jupiter::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #E57373 0%, #B71C1C 100%);
+            border-radius: 50%;
+            top: 100px;
+            left: 140px;
+            box-shadow: 0 0 20px rgba(229, 115, 115, 0.6);
+        }
+
+        /* Сатурн */
+        .geo-saturn {
+            background: radial-gradient(circle at 40% 35%, #FFE082 0%, #E6C450 40%, #B8962E 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+        .geo-saturn::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            border: 8px solid rgba(255, 224, 130, 0.6);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            box-shadow: 0 0 30px rgba(255, 224, 130, 0.4);
+        }
+
+        /* Уран */
+        .geo-uranus {
+            background: radial-gradient(circle at 40% 35%, #80DEEA 0%, #26C6DA 40%, #00838F 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(128, 222, 234, 0.4);
+        }
+
+        /* Нептун */
+        .geo-neptune {
+            background: radial-gradient(circle at 40% 35%, #3949AB 0%, #1A237E 40%, #0D1452 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 70px rgba(57, 73, 171, 0.5);
+        }
+
+        /* Солнце */
+        .geo-sun {
+            background: radial-gradient(circle at 45% 40%, #FFF9C4 0%, #FFD54F 30%, #FF8F00 60%, #FF6F00 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 120px rgba(255, 143, 0, 0.8);
+            animation: sunGlow 2s ease-in-out infinite;
+        }
+        @keyframes sunGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 100px rgba(255, 143, 0, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 180px rgba(255, 143, 0, 1);
+            }
+        }
+
+        /* Млечный Путь */
+        .geo-milkyway {
+            background: linear-gradient(135deg, #1a0030 0%, #0d0040 20%, #1a0040 40%, #0d0030 60%, #000015 80%, #1a0030 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 100px rgba(100, 50, 180, 0.5);
+            overflow: hidden;
+        }
+        .geo-milkyway::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgba(200, 150, 255, 0.8), rgba(255,
+                        255, 255, 0.6), transparent);
+            top: 50%;
+            left: -50%;
+            transform: rotate(-30deg);
+            box-shadow: 0 0 40px rgba(200, 150, 255, 0.5);
+        }
+
+        /* Андромеда */
+        .geo-andromeda {
+            background: radial-gradient(ellipse at 50% 50%, #E1BEE7 0%, #7B1FA2 40%, #1a0030 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(123, 31, 162, 0.5);
+        }
+
+        /* Скопление */
+        .geo-cluster {
+            background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.3) 0%, rgba(100, 100, 200, 0.2) 20%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(255, 255, 255, 0.25) 0%, rgba(150, 100, 200, 0.15) 15%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(255, 255, 255, 0.2) 0%, rgba(100, 150, 200, 0.1) 10%, transparent 30%),
+                #000015;
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(100, 100, 200, 0.3);
+        }
+
+        /* Ланиакея */
+        .geo-laniakea {
+            background: radial-gradient(ellipse at 40% 30%, rgba(200, 180, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 70%, rgba(180, 200, 255, 0.15) 0%, transparent 40%),
+                #000008;
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(150, 120, 200, 0.3);
+        }
+
+        /* Чёрная дыра */
+        .geo-blackhole {
+            background: radial-gradient(circle at 50% 50%, #000 0%, #000 30%, transparent 60%);
+            border-radius: 50%;
+            box-shadow:
+                0 0 40px rgba(100, 0, 200, 0.6),
+                0 0 80px rgba(100, 0, 200, 0.3),
+                inset 0 0 80px rgba(0, 0, 0, 1);
+            border: 3px solid rgba(150, 0, 255, 0.4);
+            animation: blackHolePulse 3s ease-in-out infinite;
+        }
+        @keyframes blackHolePulse {
+            0%,
+            100% {
+                box-shadow: 0 0 50px rgba(120, 0, 220, 0.6), 0 0 100px rgba(120, 0, 220, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 90px rgba(180, 0, 255, 0.8), 0 0 160px rgba(180, 0, 255, 0.5);
+            }
+        }
+
+        .stage-title {
+            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .stage-depth {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ===== ПОЗИЦИИ — 15000vh ===== */
+        .s1 {
+            top: 5vh;
+        }
+        .s2 {
+            top: 550vh;
+        }
+        .s3 {
+            top: 1100vh;
+        }
+        .s4 {
+            top: 1650vh;
+        }
+        .s5 {
+            top: 2200vh;
+        }
+        .s6 {
+            top: 2750vh;
+        }
+        .s7 {
+            top: 3300vh;
+        }
+        .s8 {
+            top: 3850vh;
+        }
+        .s9 {
+            top: 4400vh;
+        }
+        .s10 {
+            top: 4950vh;
+        }
+        .s11 {
+            top: 5500vh;
+        }
+        .s12 {
+            top: 6050vh;
+        }
+        .s13 {
+            top: 6600vh;
+        }
+        .s14 {
+            top: 7150vh;
+        }
+        .s15 {
+            top: 7700vh;
+        }
+        .s16 {
+            top: 8250vh;
+        }
+        .s17 {
+            top: 8800vh;
+        }
+        .s18 {
+            top: 9350vh;
+        }
+        .s19 {
+            top: 9900vh;
+        }
+        .s20 {
+            top: 10450vh;
+        }
+        .s21 {
+            top: 11000vh;
+        }
+        .s22 {
+            top: 11550vh;
+        }
+        .s23 {
+            top: 12100vh;
+        }
+        .s24 {
+            top: 12650vh;
+        }
+
+        /* ===== ФИНАЛ ===== */
+        .final-section {
+            position: absolute;
+            top: 13700vh;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .final-orbit {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .orbit-object {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .orbit-object.fly-away {
+            transform: scale(0) translate(var(--fly-x), var(--fly-y)) !important;
+            opacity: 0 !important;
+            transition: all 1.5s cubic-bezier(0.6, 0, 1, 1) !important;
+        }
+
+        .final-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: clamp(6rem, 15vw, 12rem);
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 20;
+            filter: drop-shadow(0 0 80px rgba(255, 0, 100, 0.9));
+        }
+
+        .final-heart.show {
+            transform: translate(-50%, -50%) scale(1);
+            animation: heartBeat 1s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes heartBeat {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            15% {
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            45% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .final-text {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            z-index: 25;
+            width: 90%;
+        }
+
+        .final-text.show {
+            opacity: 1;
+            transition-delay: 1s;
+        }
+
+        .final-text .subtitle {
+            font-size: 1.2rem;
+            /* УМЕНЬШЕННЫЙ ШРИФТ */
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .final-text h1 {
+            font-size: 1.8rem;
+            /* УМЕНЬШЕННЫЙ ШРИФТ */
+            font-weight: 300;
+            letter-spacing: 6px;
+            line-height: 1.6;
+            background: linear-gradient(180deg,
+                    #ffffff 0%,
+                    #E1BEE7 20%,
+                    #CE93D8 40%,
+                    #AB47BC 60%,
+                    #7B1FA2 80%,
+                    #4A148C 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(171, 71, 188, 0.7));
+            margin-bottom: 0.8rem;
+        }
+
+        .final-text .love-phrase {
+            font-size: 1.6rem;
+            /* УМЕНЬШЕННЫЙ ШРИФТ */
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: #E1BEE7;
+            text-shadow: 0 0 30px rgba(225, 190, 231, 0.6);
+            margin-top: 0.8rem;
+        }
+
+        .signature {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .signature .name {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            background: linear-gradient(180deg, #fff 0%, #E1BEE7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== ЛЕТАЮЩИЕ СУЩЕСТВА ===== */
+        .flying-creature {
+            position: fixed;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 2.5rem;
+        }
+
+        .flying-creature.active {
+            opacity: 1;
+            animation: flyAcross linear forwards;
+        }
+
+        @keyframes flyAcross {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                transform: translate(10vw, -5vh) rotate(10deg) scale(1);
+                opacity: 1;
+            }
+            90% {
+                transform: translate(80vw, -20vh) rotate(-15deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100vw, -30vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* ===== ТАЙМЕР ===== */
+        .timer-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 16px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .timer {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #CE93D8;
+            text-shadow: 0 0 25px rgba(206, 147, 216, 0.8);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .timer.warning {
+            color: #FF8A80;
+            text-shadow: 0 0 30px rgba(255, 138, 128, 0.9);
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        @media (max-width: 600px) {
+            .geo-object {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+            .timer-container {
+                top: 10px;
+                right: 10px;
+                padding: 10px 16px;
+                gap: 8px;
+            }
+            .timer {
+                font-size: 1.3rem;
+            }
+            .hint {
+                bottom: 20px;
+                font-size: 0.7rem;
+            }
+            .final-text h1 {
+                font-size: 1.3rem;
+            }
+            .final-text .love-phrase {
+                font-size: 1.2rem;
+            }
+            .final-orbit {
+                height: 300px;
+            }
+            .orbit-object {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer" id="bgLayer"></div>
+    <div class="bg-overlay" id="bgOverlay"></div>
+    <div class="stars-layer" id="starsLayer"></div>
+    <div class="particles-layer" id="particles"></div>
+
+    <div class="timer-container">
+        <span class="timer-label">До признания</span>
+        <span class="timer" id="timer">2:00</span>
+    </div>
+    <div class="hint" id="hint">↓ листай вниз, если осмелишься ↓</div>
+
+    <!-- Контейнер для летающих существ -->
+    <div id="creaturesContainer"></div>
+
+    <div class="content">
+        <!-- 1. Фудзияма -->
+        <div class="stage s1">
+            <div class="geo-object geo-mountain">
+                <div class="snow-cap"></div>
+                🏔️
+            </div>
+            <div class="stage-title">Гора Фудзияма</div>
+            <div class="stage-depth">3 776 м — Вершина мира</div>
+        </div>
+
+        <!-- 2. Берег -->
+        <div class="stage s2">
+            <div class="geo-object geo-ocean">🌊</div>
+            <div class="stage-title">Берег океана</div>
+            <div class="stage-depth">0 м — Начало погружения</div>
+        </div>
+
+        <!-- 3. Риф -->
+        <div class="stage s3">
+            <div class="geo-object geo-reef">🐠</div>
+            <div class="stage-title">Эпипелагиаль</div>
+            <div class="stage-depth">0–200 м — Солнечная зона</div>
+        </div>
+
+        <!-- 4. Мезопелагиаль -->
+        <div class="stage s4">
+            <div class="geo-object geo-deep">🦑</div>
+            <div class="stage-title">Мезопелагиаль</div>
+            <div class="stage-depth">200–1000 м — Сумеречная зона</div>
+        </div>
+
+        <!-- 5. Батипелагиаль -->
+        <div class="stage s5">
+            <div class="geo-object geo-deep" style="background: linear-gradient(180deg, #020c18 0%, #010510 100%);">🐙
+            </div>
+            <div class="stage-title">Батипелагиаль</div>
+            <div class="stage-depth">1000–4000 м — Полуночная зона</div>
+        </div>
+
+        <!-- 6. Абиссопелагиаль -->
+        <div class="stage s6">
+            <div class="geo-object geo-abyss">🕳️</div>
+            <div class="stage-title">Абиссопелагиаль</div>
+            <div class="stage-depth">4000–6000 м — Бездна</div>
+        </div>
+
+        <!-- 7. Жёлоб -->
+        <div class="stage s7">
+            <div class="geo-object geo-trench">⛓️</div>
+            <div class="stage-title">Глубоководный жёлоб</div>
+            <div class="stage-depth">6000–10 000 м — Ультраабиссаль</div>
+        </div>
+
+        <!-- 8. Марианская впадина -->
+        <div class="stage s8">
+            <div class="geo-object geo-mariana">⚫</div>
+            <div class="stage-title">Марианская впадина</div>
+            <div class="stage-depth">10 994 м — Дно Земли</div>
+        </div>
+
+        <!-- 9. Прорыв -->
+        <div class="stage s9">
+            <div class="geo-object geo-rocket">🚀</div>
+            <div class="stage-title">Прорыв в космос</div>
+            <div class="stage-depth">↑↑↑ Покидаем Землю ↑↑↑</div>
+        </div>
+
+        <!-- 10. Луна -->
+        <div class="stage s10">
+            <div class="geo-object geo-moon">🌙</div>
+            <div class="stage-title">Луна</div>
+            <div class="stage-depth">384 400 км</div>
+        </div>
+
+        <!-- 11. Меркурий -->
+        <div class="stage s11">
+            <div class="geo-object geo-mercury">☿</div>
+            <div class="stage-title">Меркурий</div>
+            <div class="stage-depth">~77 млн км</div>
+        </div>
+
+        <!-- 12. Венера -->
+        <div class="stage s12">
+            <div class="geo-object geo-venus">♀</div>
+            <div class="stage-title">Венера</div>
+            <div class="stage-depth">~38 млн км</div>
+        </div>
+
+        <!-- 13. Земля -->
+        <div class="stage s13">
+            <div class="geo-object geo-earth">🌍</div>
+            <div class="stage-title">Земля</div>
+            <div class="stage-depth">Наш дом</div>
+        </div>
+
+        <!-- 14. Марс -->
+        <div class="stage s14">
+            <div class="geo-object geo-mars">♂</div>
+            <div class="stage-title">Марс</div>
+            <div class="stage-depth">~55 млн км</div>
+        </div>
+
+        <!-- 15. Юпитер -->
+        <div class="stage s15">
+            <div class="geo-object geo-jupiter">♃</div>
+            <div class="stage-title">Юпитер</div>
+            <div class="stage-depth">~588 млн км</div>
+        </div>
+
+        <!-- 16. Сатурн -->
+        <div class="stage s16">
+            <div class="geo-object geo-saturn">🪐</div>
+            <div class="stage-title">Сатурн</div>
+            <div class="stage-depth">~1.2 млрд км</div>
+        </div>
+
+        <!-- 17. Уран -->
+        <div class="stage s17">
+            <div class="geo-object geo-uranus">⛢</div>
+            <div class="stage-title">Уран</div>
+            <div class="stage-depth">~2.6 млрд км</div>
+        </div>
+
+        <!-- 18. Нептун -->
+        <div class="stage s18">
+            <div class="geo-object geo-neptune">♆</div>
+            <div class="stage-title">Нептун</div>
+            <div class="stage-depth">~4.3 млрд км</div>
+        </div>
+
+        <!-- 19. Солнце -->
+        <div class="stage s19">
+            <div class="geo-object geo-sun">☀️</div>
+            <div class="stage-title">Солнце</div>
+            <div class="stage-depth">~150 млн км — Звезда</div>
+        </div>
+
+        <!-- 20. Млечный Путь -->
+        <div class="stage s20">
+            <div class="geo-object geo-milkyway">🌌</div>
+            <div class="stage-title">Млечный Путь</div>
+            <div class="stage-depth">100 000 световых лет</div>
+        </div>
+
+        <!-- 21. Андромеда -->
+        <div class="stage s21">
+            <div class="geo-object geo-andromeda">✨</div>
+            <div class="stage-title">Галактика Андромеды</div>
+            <div class="stage-depth">2.5 млн св. лет</div>
+        </div>
+
+        <!-- 22. Сверхскопление -->
+        <div class="stage s22">
+            <div class="geo-object geo-cluster">💫</div>
+            <div class="stage-title">Сверхскопление Девы</div>
+            <div class="stage-depth">110 млн св. лет</div>
+        </div>
+
+        <!-- 23. Ланиакея -->
+        <div class="stage s23">
+            <div class="geo-object geo-laniakea">🌀</div>
+            <div class="stage-title">Ланиакея</div>
+            <div class="stage-depth">520 млн св. лет</div>
+        </div>
+
+        <!-- 24. Чёрная дыра -->
+        <div class="stage s24">
+            <div class="geo-object geo-blackhole">⚫</div>
+            <div class="stage-title">Сверхмассивная чёрная дыра</div>
+            <div class="stage-depth">M87* — 6.5 млрд масс Солнца</div>
+        </div>
+
+        <!-- ===== ФИНАЛ ===== -->
+        <div class="final-section" id="finalSection">
+            <div class="final-orbit" id="finalOrbit">
+                <div class="final-heart" id="finalHeart">❤️</div>
+                <div class="final-text" id="finalText">
+                    <div class="subtitle">Стеша,</div>
+                    <h1>МОЮ ЛЮБОВЬ<br>НЕ ИЗМЕРИТЬ<br>НИ ГЛУБИНОЙ,<br>НИ МЕТРОМ,<br>НИ КОСМОСОМ</h1>
+                    <div class="love-phrase">Я ТЕБЯ ЛЮБЛЮ ❤️</div>
+                    <div class="signature">
+                        <p>навсегда твой,</p>
+                        <p class="name">Никита</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== ТАЙМЕР =====
+        let timeLeft = 120;
+        const timerElement = document.getElementById('timer');
+        const hintElement = document.getElementById('hint');
+        const finalSection = document.getElementById('finalSection');
+        const timerLabel = document.querySelector('.timer-label');
+        let autoScrollActive = false;
+        let autoScrollAnimationId = null;
+        let userInterrupted = false;
+        let interruptTimeout = null;
+        let orbitTriggered = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 30 && timeLeft > 0) {
+                timerElement.classList.add('warning');
+                timerLabel.textContent = 'ПРИГОТОВЬСЯ';
+            }
+        }
+
+        function startAutoScroll() {
+            if (autoScrollActive) return;
+            autoScrollActive = true;
+            userInterrupted = false;
+            timerLabel.textContent = 'ЛЮБОВЬ';
+            timerElement.textContent = '∞';
+            timerElement.classList.remove('warning');
+            timerElement.style.color = '#E1BEE7';
+            hintElement.style.opacity = '0';
+
+            const targetRect = finalSection.getBoundingClientRect();
+            const targetAbsTop = targetRect.top + window.pageYOffset;
+            const targetPosition = targetAbsTop - (window.innerHeight / 3);
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 20000;
+            const startTime = performance.now();
+
+            function animateScroll(currentTime) {
+                if (userInterrupted) {
+                    autoScrollAnimationId = null;
+                    autoScrollActive = false;
+                    return;
+                }
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1.0);
+                const eased = progress < 0.5 ?
+                    4 * progress * progress * progress :
+                    1 - Math.pow(-2 * progress + 2, 3) / 2;
+                window.scrollTo(0, startPosition + distance * eased);
+                if (progress < 1.0) {
+                    autoScrollAnimationId = requestAnimationFrame(animateScroll);
+                } else {
+                    finalSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    autoScrollAnimationId = null;
+                    setTimeout(triggerOrbitAnimation, 1000);
+                }
+            }
+            autoScrollAnimationId = requestAnimationFrame(animateScroll);
+        }
+
+        function handleUserInterrupt() {
+            if (!autoScrollActive) return;
+            userInterrupted = true;
+            if (autoScrollAnimationId) {
+                cancelAnimationFrame(autoScrollAnimationId);
+                autoScrollAnimationId = null;
+            }
+            autoScrollActive = false;
+            clearTimeout(interruptTimeout);
+            interruptTimeout = setTimeout(() => {
+                if (timeLeft <= 0 && !autoScrollActive) startAutoScroll();
+            }, 3000);
+        }
+
+        setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) startAutoScroll();
+            }
+        }, 1000);
+        updateTimerDisplay();
+
+        window.addEventListener('wheel', handleUserInterrupt, { passive: true });
+        window.addEventListener('touchmove', handleUserInterrupt, { passive: true });
+        window.addEventListener('keydown', (e) => {
+            if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'End', 'Home'].includes(e.key))
+                handleUserInterrupt();
+        });
+
+        // ===== ЗВЁЗДЫ =====
+        const starsLayer = document.getElementById('starsLayer');
+        for (let i = 0; i < 300; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 2.5 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.opacity = Math.random() * 0.8 + 0.2;
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsLayer.appendChild(star);
+        }
+
+        // ===== ЧАСТИЦЫ =====
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 120; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 3 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 15 + 8) + 's';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.background = [
+                'rgba(255,255,255,0.8)', 'rgba(180,220,255,0.7)', 'rgba(200,180,255,0.7)',
+                'rgba(255,200,255,0.6)', 'rgba(180,150,220,0.6)'
+            ][Math.floor(Math.random() * 5)];
+            particlesContainer.appendChild(particle);
+        }
+
+        // ===== ФОН =====
+        const bgLayer = document.getElementById('bgLayer');
+        const bgOverlay = document.getElementById('bgOverlay');
+        window.addEventListener('scroll', () => {
+            const sp = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            if (sp < 0.06) {
+                bgLayer.style.background = 'linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 50%, #4A90D9 100%)';
+                bgOverlay.style.opacity = '0';
+                starsLayer.style.opacity = '0';
+            } else if (sp < 0.3) {
+                const d = (sp - 0.06) / 0.24;
+                const r = Math.floor(15 - d * 15),
+                    g = Math.floor(50 - d * 45),
+                    b = Math.floor(90 - d * 60);
+                bgLayer.style.background =
+                    `linear-gradient(to bottom, rgb(${r+10},${g+15},${b+20}) 0%, rgb(${r},${g},${b}) 100%)`;
+                bgOverlay.style.opacity = d * 0.4;
+                bgOverlay.style.background =
+                    `radial-gradient(ellipse at center, transparent 40%, rgba(0,0,${Math.floor(30+d*30)},0.8) 100%)`;
+                starsLayer.style.opacity = '0';
+            } else if (sp < 0.55) {
+                bgLayer.style.background = 'linear-gradient(to bottom, #020c18 0%, #000015 100%)';
+                bgOverlay.style.opacity = '0.6';
+                bgOverlay.style.background = 'radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.9) 100%)';
+                starsLayer.style.opacity = (sp - 0.3) / 0.25;
+            } else {
+                bgLayer.style.background = 'linear-gradient(to bottom, #000010 0%, #020015 50%, #000008 100%)';
+                bgOverlay.style.opacity = '0.8';
+                bgOverlay.style.background =
+                    'radial-gradient(ellipse at center, transparent 10%, rgba(5,0,20,0.95) 100%)';
+                starsLayer.style.opacity = '1';
+            }
+            if (sp > 0.02) hintElement.style.opacity = '0';
+            else hintElement.style.opacity = '1';
+            if (sp > 0.85 && !orbitTriggered && timeLeft <= 0) triggerOrbitAnimation();
+        });
+
+        // ===== ОРБИТА + СУЩЕСТВА =====
+        function triggerOrbitAnimation() {
+            if (orbitTriggered) return;
+            orbitTriggered = true;
+
+            const orbitContainer = document.getElementById('finalOrbit');
+            const finalHeart = document.getElementById('finalHeart');
+            const finalText = document.getElementById('finalText');
+
+            // Цвета для геометрических орбитных объектов
+            const orbitColors = [
+                '#F5F5F5', '#B0BEC5', '#FFCC80', '#64B5F6', '#EF5350', '#FFB74D', '#FFE082',
+                '#80DEEA', '#3949AB', '#FFD54F', '#9C27B0', '#7B1FA2', '#4A148C', '#1A1A1A'
+            ];
+
+            const cx = orbitContainer.offsetWidth / 2;
+            const cy = orbitContainer.offsetHeight / 2;
+            const radius = Math.min(cx, cy) * 0.65;
+
+            orbitColors.forEach((color, i) => {
+                const angle = (i / orbitColors.length) * Math.PI * 2;
+                const x = cx + Math.cos(angle) * radius - 25;
+                const y = cy + Math.sin(angle) * radius - 25;
+                const div = document.createElement('div');
+                div.classList.add('orbit-object');
+                div.style.left = x + 'px';
+                div.style.top = y + 'px';
+                div.style.background = `radial-gradient(circle at 40% 35%, ${color} 0%, #000 100%)`;
+                div.style.boxShadow = `0 0 25px ${color}`;
+                orbitContainer.appendChild(div);
+                setTimeout(() => { div.style.opacity = '1';
+                    div.style.transform = 'scale(1)'; }, i * 150);
+            });
+
+            // Разлёт через 3.5 сек
+            setTimeout(() => {
+                document.querySelectorAll('.orbit-object').forEach(obj => {
+                    const a = Math.random() * Math.PI * 2;
+                    const d = 400 + Math.random() * 600;
+                    obj.style.setProperty('--fly-x', Math.cos(a) * d + 'px');
+                    obj.style.setProperty('--fly-y', Math.sin(a) * d + 'px');
+                    obj.classList.add('fly-away');
+                });
+                setTimeout(() => {
+                    finalHeart.classList.add('show');
+                    finalText.classList.add('show');
+                    spawnCreatures();
+                }, 800);
+            }, 3500);
+        }
+
+        // ===== КУПИДОНЫ / ИНОПЛАНЕТЯНЕ =====
+        function spawnCreatures() {
+            const container = document.getElementById('creaturesContainer');
+            const creatureTypes = ['👼', '👽', '💘', '👼', '👽', '💘', '👼', '👽'];
+            // Эмодзи-заглушки. ИНСТРУКЦИЯ ПО ЗАМЕНЕ НА ФОТО НИЖЕ!
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const creature = document.createElement('div');
+                    creature.classList.add('flying-creature');
+                    creature.textContent = creatureTypes[i % creatureTypes.length] + ' ❤️';
+                    creature.style.left = Math.random() * 20 + 'vw';
+                    creature.style.top = (20 + Math.random() * 60) + 'vh';
+                    creature.style.animationDuration = (3 + Math.random() * 5) + 's';
+                    creature.style.fontSize = (2 + Math.random() * 3) + 'rem';
+                    container.appendChild(creature);
+                    requestAnimationFrame(() => creature.classList.add('active'));
+                    setTimeout(() => creature.remove(), 6000);
+                }, i * 300);
+            }
+        }
+
+        // Проверка при загрузке
+        window.addEventListener('load', () => {
+            const sp = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            if (sp > 0.85 && timeLeft <= 0 && !orbitTriggered) setTimeout(triggerOrbitAnimation, 1500);
+        });
+    </script>
+</body>
+</html>
