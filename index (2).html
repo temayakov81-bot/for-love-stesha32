@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стеша ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            cursor: default;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle infinite alternate;
+        }
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+                transform: scale(0.7);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .main {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            gap: 50px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .hero h1 {
+            font-weight: 200;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            letter-spacing: 12px;
+            background: linear-gradient(180deg, #fff, #E1BEE7, #AB47BC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(171, 71, 188, 0.5));
+        }
+
+        .phrase {
+            text-align: center;
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.8;
+            max-width: 500px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        .phrase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .phrase strong {
+            color: #E1BEE7;
+            font-weight: 400;
+            text-shadow: 0 0 15px rgba(225, 190, 231, 0.4);
+        }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(150, 100, 200, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        .video-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .video-wrapper video {
+            width: 100%;
+            display: block;
+            background: #0a0015;
+        }
+        .video-fallback {
+            text-align: center;
+            padding: 30px;
+            background: #0a0015;
+        }
+        .video-fallback a {
+            color: #E1BEE7;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .video-fallback a:hover {
+            background: rgba(171, 71, 188, 0.3);
+        }
+        .video-label {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.35);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .finale {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .finale .heart {
+            font-size: 4rem;
+            animation: beat 1s infinite;
+        }
+        @keyframes beat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            30% {
+                transform: scale(1.3);
+            }
+        }
+        .finale h2 {
+            font-weight: 200;
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            color: #E1BEE7;
+            margin: 15px 0;
+        }
+        .finale .sig {
+            font-weight: 300;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .finale .sig span {
+            display: block;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 8px;
+            margin-top: 5px;
+            background: linear-gradient(180deg, #fff, #E1BEE7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="main">
+        <div class="hero"><h1>Стеша</h1></div>
+
+        <!-- ФРАЗЫ О НЕЙ -->
+        <div class="phrase">Когда я вижу тебя — мир замирает. Ты — <strong>самое красивое</strong>, что случалось в моей жизни.</div>
+        <div class="phrase">Твой смех — мой любимый звук. Твой взгляд — место, где я <strong>хочу остаться навсегда</strong>.</div>
+        <div class="phrase">Каждое утро я благодарю судьбу за то, что ты <strong>есть у меня</strong>.</div>
+
+        <!-- ВИДЕО 1 -->
+        <div class="video-label">наш момент</div>
+        <div class="video-wrapper" id="vw1">
+            <video id="v1" controls preload="metadata" playsinline style="display:none;">
+                <source src="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/copy-89dee692-ff75-464d-86ce-355c85f47032_MUJmwMk4.mp4" type="video/mp4">
+            </video>
+            <div class="video-fallback" id="fb1">
+                <p style="color:rgba(255,255,255,0.6);">🎬</p>
+                <a href="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/copy-89dee692-ff75-464d-86ce-355c85f47032_MUJmwMk4.mp4" target="_blank">Смотреть видео</a>
+            </div>
+        </div>
+
+        <!-- ФРАЗЫ О ВРЕМЕНИ ВМЕСТЕ -->
+        <div class="phrase">Каждая минута с тобой — <strong>бесценна</strong>. Я помню каждую прогулку, каждый закат, каждую твою улыбку.</div>
+        <div class="phrase">Ты сделала мою жизнь <strong>настоящей</strong>. До тебя были серые будни, с тобой — яркое приключение.</div>
+        <div class="phrase">Рядом с тобой я чувствую, что <strong>живу по-настоящему</strong>.</div>
+
+        <!-- ВИДЕО 2 -->
+        <div class="video-label">ещё один наш момент</div>
+        <div class="video-wrapper" id="vw2">
+            <video id="v2" controls preload="metadata" playsinline style="display:none;">
+                <source src="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/copy_5F316377-2395-4785-89E7-91090C74844E.mov" type="video/mp4">
+            </video>
+            <div class="video-fallback" id="fb2">
+                <p style="color:rgba(255,255,255,0.6);">🎬</p>
+                <a href="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/copy_5F316377-2395-4785-89E7-91090C74844E.mov" target="_blank">Смотреть видео</a>
+            </div>
+        </div>
+
+        <!-- ФРАЗЫ О ТОМ, ЧТО ОНА ЗНАЧИТ -->
+        <div class="phrase">Ты — <strong>мой приоритет</strong>. Всегда номер один. Никто и никогда не встанет выше тебя.</div>
+        <div class="phrase">Я не хочу тебя терять. <strong>Никогда</strong>. Ты — моё самое дорогое сокровище.</div>
+        <div class="phrase">Ради тебя я готов на всё. <strong>Ты — мой смысл.</strong></div>
+
+        <!-- ВИДЕО ИЗ ЗЕЛЁНОЙ МИЛИ -->
+        <div class="video-label">то самое письмо</div>
+        <div class="video-wrapper" id="vw3">
+            <video id="v3" controls preload="metadata" playsinline style="display:none;">
+                <source src="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/Помог%20написать%20письмо%20жене%20Без%20тебя%20все%20что%20я%20вижу%20и%20делаю%20не%20имеет%20смысла%20Зеленая%20книга%202018%20%5Bget-save.com%5D.mp4" type="video/mp4">
+            </video>
+            <div class="video-fallback" id="fb3">
+                <p style="color:rgba(255,255,255,0.6);">🎥</p>
+                <a href="https://raw.githubusercontent.com/temayakov81-bot/for-love-stesha32/main/Помог%20написать%20письмо%20жене%20Без%20тебя%20все%20что%20я%20вижу%20и%20делаю%20не%20имеет%20смысла%20Зеленая%20книга%202018%20%5Bget-save.com%5D.mp4" target="_blank">Смотреть фрагмент</a>
+            </div>
+        </div>
+
+        <!-- ФИНАЛ -->
+        <div class="finale">
+            <div class="heart">❤️</div>
+            <h2>Я люблю тебя</h2>
+            <div class="sig">
+                навсегда твой,
+                <span>Никита</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Звёзды
+        const sc = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = Math.random() * 2 + 0.5;
+            s.style.cssText = `
+            width:${sz}px;height:${sz}px;
+            left:${Math.random()*100}%;top:${Math.random()*100}%;
+            animation-duration:${2+Math.random()*3}s;
+            opacity:${0.3+Math.random()*0.5};
+          `;
+            sc.appendChild(s);
+        }
+
+        // Появление фраз и видео
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.phrase, .video-wrapper').forEach(el => obs.observe(el));
+
+        // Видео или кнопка
+        function setupV(vidId, fbId) {
+            const v = document.getElementById(vidId);
+            const fb = document.getElementById(fbId);
+            if (!v || !fb) return;
+            v.addEventListener('loadedmetadata', () => { v.style.display = 'block';
+                fb.style.display = 'none'; });
+            v.addEventListener('error', () => { v.style.display = 'none';
+                fb.style.display = 'block'; });
+            setTimeout(() => { if (v.readyState < 2) { v.style.display = 'none';
+                    fb.style.display = 'block'; } }, 4000);
+        }
+        setupV('v1', 'fb1');
+        setupV('v2', 'fb2');
+        setupV('v3', 'fb3');
+    </script>
+</body>
+</html>
